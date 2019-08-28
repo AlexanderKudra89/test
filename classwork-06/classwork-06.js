@@ -30,28 +30,35 @@
 
 const productList = [
   {
-    id: 1,
-    name: 'Telephone',
-    price: 55,
+    id: 0,
+    name: 'Mi',
+    price: 300,
     inStock: true,
+    imgUrl:
+      'https://www.91-img.com/pictures/133713-v2-vivo-y17-mobile-phone-large-1.jpg',
+  },
+  {
+    id: 1,
+    name: 'Sony',
+    price: 350,
+    inStock: true,
+    imgUrl:
+      'https://www.91-img.com/pictures/134236-v3-vivo-z5x-mobile-phone-large-1.jpg',
   },
   {
     id: 2,
-    name: 'TV',
-    price: 55000,
+    name: 'Iphone',
+    price: 1000,
     inStock: true,
+    imgUrl:
+      'https://cdn.tmobile.com/content/dam/t-mobile/en-p/cell-phones/apple/apple-iphone-xr/blue/Apple-iPhoneXr-Blue-1-3x.jpg',
   },
   {
     id: 3,
-    name: 'Mouse',
-    price: 60,
-    inStock: true,
-  },
-  {
-    id: 4,
-    name: 'Notebook',
-    price: 10000,
+    name: 'Jio',
+    price: 35,
     inStock: false,
+    imgUrl: 'https://n1.sdlcdn.com/imgs/g/z/o/1-637b9.jpg',
   },
 ];
 
@@ -88,6 +95,47 @@ const cart = {
   },
 };
 
-cart.setInStockById(8);
-cart.showInfo();
-cart.log();
+// cart.setInStockById(8);
+// cart.showInfo();
+// cart.log();
+
+const cartItem = item => {
+  return `<li class="cart__item">
+  <figure class="cart__figure">
+      <img onclick="alert(fuck)" src="${item.imgUrl}" alt="" class="cart__img">
+  </figure>
+  <div class="cart__details">
+      <h2 class="cart__title">${item.name}</h2>
+      <span class="cart__price">Price: ${item.price}$</span>
+      <button class="btn">Delete</button>
+  </div>
+</li>`;
+};
+
+const cartList = document.querySelector('.cart__list');
+const randerList = () => {
+  cartList.innerHTML = cart.productList
+    .map(item => cartItem(item))
+    .reduce((acc, item) => acc + item, '');
+};
+
+randerList();
+
+// cartList.innerHTML = cart.productList
+//   .map(item => cartItem(item))
+//   .reduce((acc, item) => acc + item, '');
+
+// console
+//   .log
+//   productList.map(item => cartItem(item)).reduce((acc, item) => acc + item, ''),
+//   ();
+
+const btnList = document.querySelectorAll('.btn');
+
+Array.from(btnList).forEach((btn, index) => {
+  btn.addEventListener('click', () => {
+    cart.removeById(index);
+    randerList();
+    console.log(cart.productList);
+  });
+});
