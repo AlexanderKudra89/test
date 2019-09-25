@@ -1,5 +1,8 @@
 // const users = require('./users')
-import users from './users';
+// import users from './users';
+import Swiper from 'swiper';
 import '../css/style.css';
 
-console.log(users);
+const slider = new Swiper('.slider', { speed: 800, effect: 'flip' });
+
+// console.log(users);
